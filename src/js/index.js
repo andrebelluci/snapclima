@@ -21,6 +21,13 @@ citySearchButton.addEventListener('click', () => {
   getCityWeather(cityName);
 });
 
+citySearchInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    let cityName = citySearchInput.value;
+    getCityWeather(cityName);
+  }
+});
+
 navigator.geolocation.getCurrentPosition(
   (position) => {
     let lat = position.coords.latitude;
@@ -70,7 +77,8 @@ function displayWeather(data) {
   currentDate.textContent = formatDate(dt);
   cityName.textContent = name;
   weatherIcon.src = `./src/assets/${icon}.svg`;
-  weatherDescription.textContent = description.charAt(0).toUpperCase() + description.slice(1);;
+  weatherDescription.textContent =
+    description.charAt(0).toUpperCase() + description.slice(1);
   currentTemperature.textContent = `${Math.round(temp)}ºC`;
   windSpeed.textContent = `${Math.round(speed * 3.6)}km`;
   feelsLikeTemperature.textContent = `${Math.round(feels_like)}ºC`;
@@ -90,8 +98,8 @@ function formatDate(epochTime) {
 
 function formatTime(epochTime) {
   let date = new Date(epochTime * 1000);
-  let hours = date.getHours(); 
-  let minutes = (date.getMinutes()<10?'0':'') + date.getMinutes();
+  let hours = date.getHours();
+  let minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
 
   return `${hours}:${minutes}`;
 }
